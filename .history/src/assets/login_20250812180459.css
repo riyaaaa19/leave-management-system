@@ -1,0 +1,167 @@
+/* ===========================
+   Professional + Eye-Catchy Login Page
+=========================== */
+
+/* --- Main Page Layout --- */
+.login-page {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b, #334155); /* Rich navy gradient */
+  color: #f8fafc;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* --- Left Column: Info Section --- */
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 60px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-section h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #38bdf8; /* Vibrant blue accent */
+  text-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+}
+
+.info-section p {
+  font-size: 1.15rem;
+  color: #e2e8f0;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.info-section li {
+  font-size: 1rem;
+  margin-bottom: 14px;
+  padding-left: 28px;
+  position: relative;
+  color: #cbd5e1;
+}
+
+.info-section li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+/* --- Right Column: Auth Section --- */
+.auth-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Login Card --- */
+.login-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 36px 38px;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
+              0 0 20px rgba(56, 189, 248, 0.15);
+  width: 360px;
+  max-width: 90vw;
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3),
+              0 0 28px rgba(56, 189, 248, 0.25);
+}
+
+/* --- Form Elements --- */
+.login-card input,
+.login-card select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 10px;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-card input::placeholder {
+  color: #94a3b8;
+}
+
+.login-card input:focus,
+.login-card select:focus {
+  outline: none;
+  background: rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 0 2px #38bdf8;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.5);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #0284c7, #0ea5e9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.6);
+}
+
+/* --- Toggle Link --- */
+.toggle-link {
+  color: #38bdf8;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.toggle-link:hover {
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .info-section {
+    padding: 40px 25px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+  }
+
+  .login-card {
+    width: 95%;
+    padding: 28px 22px;
+    margin-top: 25px;
+  }
+}
