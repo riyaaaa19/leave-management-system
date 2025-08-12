@@ -21,11 +21,11 @@ async def request_leave(
 
     # Convert camelCase keys from frontend to snake_case expected by Pydantic
     leave_data = {
-        "leave_type": raw.get("leaveType"),
-        "start_date": raw.get("startDate"),
-        "end_date": raw.get("endDate"),
+        "leave_type": raw.get("leave_type"),
+        "start_date": raw.get("start_date"),
+        "end_date": raw.get("end_date"),
         "reason": raw.get("reason")
-    }
+}
 
     # Validate with Pydantic schema
     leave = schemas.LeaveCreate(**leave_data)
