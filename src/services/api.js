@@ -19,9 +19,7 @@ export const loginUser = async ({ email, password }) => {
 
   const data = await response.json();
   localStorage.setItem("token", data.access_token);
-  if (data.user) {
-    localStorage.setItem("loggedInUser", JSON.stringify(data.user));
-  }
+  if (data.user) localStorage.setItem("loggedInUser", JSON.stringify(data.user));
 
   return data;
 };
@@ -41,7 +39,7 @@ export const registerUser = async (userData) => {
   return response.json();
 };
 
-// ----- FETCH ALL LEAVES (ADMIN) -----
+// ----- ADMIN: GET ALL LEAVES -----
 export const getLeaveRequests = async () => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Admin not logged in");
@@ -57,7 +55,7 @@ export const getLeaveRequests = async () => {
   return response.json();
 };
 
-// ----- UPDATE LEAVE STATUS -----
+// ----- ADMIN: UPDATE LEAVE STATUS -----
 export const updateLeaveStatus = async (id, status) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Admin not logged in");

@@ -1,6 +1,6 @@
 const API_BASE = "https://leave-management-system-cltb.onrender.com";
 
-// ----- APPLY LEAVE -----
+// ----- APPLY LEAVE (USER) -----
 export const applyLeave = async (leave) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("User not logged in");
@@ -32,7 +32,7 @@ export const applyLeave = async (leave) => {
   return response.json();
 };
 
-// ----- FETCH MY LEAVES -----
+// ----- FETCH MY LEAVES (USER) -----
 export const fetchMyLeaves = async () => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("User not logged in");
