@@ -1,4 +1,3 @@
-
 # 🗓️ Leave Management System
 
 A modern React.js and FastAPI based Leave Management System to manage employee leave applications, approvals, and history tracking.
