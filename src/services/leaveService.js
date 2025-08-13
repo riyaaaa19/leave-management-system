@@ -1,4 +1,6 @@
-const API_BASE = "https://leave-management-system-cltb.onrender.com";
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL ||
+  "https://leave-management-system-cltb.onrender.com";
 
 // ----- APPLY LEAVE (USER) -----
 export const applyLeave = async (leave) => {
@@ -6,9 +8,9 @@ export const applyLeave = async (leave) => {
   if (!token) throw new Error("User not logged in");
 
   const payload = {
-    leave_type: leave.leaveType,
-    start_date: leave.startDate,
-    end_date: leave.endDate,
+    leave_type: leave.leave_type,   // snake_case keys match backend
+    start_date: leave.start_date,
+    end_date: leave.end_date,
     reason: leave.reason,
   };
 

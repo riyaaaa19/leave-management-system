@@ -1,6 +1,8 @@
-const API_BASE = "https://leave-management-system-cltb.onrender.com";
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL ||
+  "https://leave-management-system-cltb.onrender.com";
 
-// ----- AUTH -----
+// ----- AUTH: LOGIN -----
 export const loginUser = async ({ email, password }) => {
   const formBody = new URLSearchParams();
   formBody.append("username", email);
@@ -24,7 +26,7 @@ export const loginUser = async ({ email, password }) => {
   return data;
 };
 
-// ----- REGISTER -----
+// ----- AUTH: REGISTER -----
 export const registerUser = async (userData) => {
   const response = await fetch(`${API_BASE}/auth/register`, {
     method: "POST",
