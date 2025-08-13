@@ -3,6 +3,7 @@ uvicorn[standard]==0.35.0
 SQLAlchemy==2.0.34
 pydantic==2.11.7
 pydantic[email]
-passlib[bcrypt]==1.7.4
+passlib==1.7.4
+bcrypt==4.0.1
 python-jose==3.3.0
 python-multipart==0.0.6
