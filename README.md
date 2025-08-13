@@ -35,7 +35,6 @@ A modern React.js and FastAPI based Leave Management System to manage employee l
 ### Frontend Setup
 
 ```bash
-cd frontend
 npm install
 npm start
 ````
