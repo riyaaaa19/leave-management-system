@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom"; // for redirect if not logged in
 import Navbar from "../components/Navbar";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,7 +13,7 @@ import {
 } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-import { Bar } from "react-chartjs-2";
+
 
 
 const getInitials = (name) => {
@@ -67,9 +68,12 @@ function AdminDashboard() {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("Authentication token not found");
 
-        const res = await fetch("http://127.0.0.1:8000/leaves/", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL || "https://leave-management-system-cltb.onrender.com"}/leaves/`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (!res.ok) throw new Error("Failed to fetch leave requests");
 
         const data = await res.json();
@@ -91,7 +95,7 @@ function AdminDashboard() {
       const status = approved ? "approved" : "rejected";
 
       const res = await fetch(
-        `http://127.0.0.1:8000/leaves/${id}/status?status=${status}`,
+        `${process.env.REACT_APP_API_BASE_URL || "https://leave-management-system-cltb.onrender.com"}/leaves/${id}/status?status=${status}`,
         {
           method: "PUT",
           headers: { Authorization: `Bearer ${token}` },
