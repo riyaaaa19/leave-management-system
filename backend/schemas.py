@@ -15,8 +15,9 @@ class User(UserBase):
     id: int
     role: str = "employee"
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -38,8 +39,9 @@ class LeaveUser(BaseModel):
     id: int
     username: str
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class Leave(LeaveBase):
     id: int
@@ -47,5 +49,6 @@ class Leave(LeaveBase):
     owner_id: int
     owner: LeaveUser  # Nested user info
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
