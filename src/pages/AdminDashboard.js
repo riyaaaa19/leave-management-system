@@ -12,6 +12,8 @@ import {
 } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+import { Bar } from "react-chartjs-2";
+
 
 const getInitials = (name) => {
   if (!name) return "UN";

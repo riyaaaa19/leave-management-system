@@ -1,10 +1,13 @@
 # backend/main.py
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 
 from backend import models, database
 from backend.routers import users, leaves, auth
+from backend.create_admin import create_admin as create_admin_script
+from backend.models import User
 
 # Create database tables on startup
 models.Base.metadata.create_all(bind=database.engine)
@@ -15,7 +18,7 @@ app = FastAPI(title="Leave Management System API", version="1.0.0")
 # ===== CORS Middleware =====
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],  # Change to your frontend domain in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,3 +33,23 @@ app.include_router(auth.router, tags=["Authentication"])
 @app.get("/", tags=["Health Check"])
 def root():
     return {"message": "Leave Management API is running"}
+
+
+# ===== SAFE ADMIN SETUP ENDPOINT =====
+@app.post("/setup-admin", tags=["Admin Setup"])
+def setup_admin(db: Session = Depends(database.get_db)):
+    """
+    Creates a default admin account ONLY if no admin exists.
+    Uses the same function as create_admin.py to avoid code duplication.
+    """
+    if db.query(User).filter(User.role == "admin").first():
+        return {"message": "Admin already exists. Nothing to do."}
+
+    # Call the same function used in create_admin.py
+    create_admin_script()
+
+    return {
+        "message": "Admin created successfully using create_admin.py!",
+        "login_email": "admin@example.com",
+        "login_password": "Admin@123"
+    }
