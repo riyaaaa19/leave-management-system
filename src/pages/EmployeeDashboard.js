@@ -26,7 +26,7 @@ function EmployeeDashboard() {
   // --- Form states for applying leave ---
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [leaveType, setLeaveType] = useState("Annual");
+  const [leaveType, setLeaveType] = useState(""); // <-- placeholder default
   const [reason, setReason] = useState("");
 
   // --- Leave request data & UI states ---
@@ -86,6 +86,11 @@ function EmployeeDashboard() {
     e.preventDefault();
     if (!storedUser) return;
 
+    if (!leaveType) {
+      alert("Please choose a leave type.");
+      return;
+    }
+
     if (new Date(startDate) > new Date(endDate)) {
       alert("Start Date cannot be after End Date.");
       return;
@@ -115,7 +120,7 @@ function EmployeeDashboard() {
       setStartDate("");
       setEndDate("");
       setReason("");
-      setLeaveType("Annual");
+      setLeaveType(""); // reset to placeholder
       alert("Leave request submitted successfully ✅");
     } catch (err) {
       alert(err.message || "Failed to submit leave request.");
@@ -349,71 +354,104 @@ function EmployeeDashboard() {
                 marginBottom: 24,
               }}
             >
-              <select
-                value={leaveType}
-                onChange={(e) => setLeaveType(e.target.value)}
-                style={{
-                  flex: "1 1 220px",
-                  padding: 14,
-                  borderRadius: 10,
-                  border: "1.8px solid #2980b9",
-                  fontSize: 17,
-                  fontWeight: "600",
-                  color: "#2980b9",
-                }}
-                required
-              >
-                <option value="Annual">Annual Leave</option>
-                <option value="Sick">Sick Leave</option>
-                <option value="Marriage">Marriage Leave</option>
-                <option value="Maternity/Paternity">Maternity/Paternity Leave</option>
-              </select>
+              {/* Leave type */}
+              <div style={{ flex: "1 1 220px" }}>
+                <label style={{ display: "block", marginBottom: 6, fontWeight: "600", color: "#34495e" }}>
+                  Leave Type
+                </label>
+                <select
+                  value={leaveType}
+                  onChange={(e) => setLeaveType(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px 14px",
+                    borderRadius: 10,
+                    border: "1.8px solid #2980b9",
+                    fontSize: 16,
+                    height: "46px",
+                    lineHeight: "1.4",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={(e) => (e.target.style.border = "1.8px solid #1f6fa1")}
+                  onBlur={(e) => (e.target.style.border = "1.8px solid #2980b9")}
+                  required
+                >
+                  <option value="" disabled >
+                    Choose your leave type
+                  </option>
+                  <option value="Annual">Annual Leave</option>
+                  <option value="Sick">Sick Leave</option>
+                  <option value="Marriage">Marriage Leave</option>
+                  <option value="Maternity/Paternity">Maternity/Paternity Leave</option>
+                </select>
+              </div>
 
-              <input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+              {/* Start Date */}
+              <div style={{ flex: "1 1 160px" }}>
+                <label style={{ display: "block", marginBottom: 6, fontWeight: "600", color: "#34495e" }}>
+                  From
+                </label>
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "14px",
+                    borderRadius: 10,
+                    border: "1.8px solid #2980b9",
+                    fontSize: 16,
+                    height: "46px",
+                    boxSizing: "border-box",
+                  }}
+                  required
+                />
+              </div>
+
+              {/* End Date */}
+              <div style={{ flex: "1 1 160px" }}>
+                <label style={{ display: "block", marginBottom: 6, fontWeight: "600", color: "#34495e" }}>
+                  To
+                </label>
+                <input
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "14px",
+                    borderRadius: 10,
+                    border: "1.8px solid #2980b9",
+                    fontSize: 16,
+                    height: "46px",
+                    boxSizing: "border-box",
+                  }}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Reason */}
+            <div style={{ marginTop: 16 }}>
+              <label style={{ display: "block", marginBottom: 6, fontWeight: "600", color: "#34495e" }}>
+                Reason
+              </label>
+              <textarea
+                placeholder="Reason for leave"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
                 style={{
-                  flex: "1 1 160px",
-                  padding: 14,
-                  borderRadius: 10,
+                  width: "100%",
+                  minHeight: 110,
+                  padding: 16,
+                  borderRadius: 12,
                   border: "1.8px solid #2980b9",
                   fontSize: 16,
-                }}
-                required
-              />
-
-              <input
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                style={{
-                  flex: "1 1 160px",
-                  padding: 14,
-                  borderRadius: 10,
-                  border: "1.8px solid #2980b9",
-                  fontSize: 16,
+                  resize: "vertical",
                 }}
                 required
               />
             </div>
-
-            {/* Reason */}
-            <textarea
-              placeholder="Reason for leave"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              style={{
-                width: "100%",
-                minHeight: 110,
-                padding: 16,
-                borderRadius: 12,
-                border: "1.8px solid #2980b9",
-                fontSize: 16,
-                resize: "vertical",
-              }}
-              required
-            />
 
             {/* Submit */}
             <button
@@ -451,26 +489,12 @@ function EmployeeDashboard() {
         </h2>
 
         {loading && (
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: 18,
-              color: "#2980b9",
-              fontWeight: "600",
-            }}
-          >
+          <p style={{ textAlign: "center", fontSize: 18, color: "#2980b9", fontWeight: "600" }}>
             Loading your leaves...
           </p>
         )}
         {error && (
-          <p
-            style={{
-              color: "#c0392b",
-              textAlign: "center",
-              marginBottom: 30,
-              fontWeight: "600",
-            }}
-          >
+          <p style={{ color: "#c0392b", textAlign: "center", marginBottom: 30, fontWeight: "600" }}>
             {error}
           </p>
         )}
@@ -558,7 +582,7 @@ function EmployeeDashboard() {
                     >
                       {leave.status
                         ? leave.status.charAt(0).toUpperCase() + leave.status.slice(1)
-                        : ""}
+                        : "Pending"}
                     </td>
                   </tr>
                 ))}
