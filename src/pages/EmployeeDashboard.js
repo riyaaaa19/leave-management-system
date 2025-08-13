@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Navbar from "../components/Navbar";
-import { fetchMyLeaves, applyLeave } from "../services/api";
+import { applyLeave, fetchMyLeaves } from "../services/leaveService";
+
 
 // --- Helper function: Get initials from username ---
 const getInitials = (name) => {
