@@ -15,7 +15,7 @@ A modern React.js and FastAPI based Leave Management System to manage employee l
 
 * **Frontend:** React.js, React Router, Bootstrap 5
 * **Backend:** FastAPI (Python)
-* **Database:** SQLite (for demo purposes)
+* **Database:** SQLite(local testing and development) and PostgreSQL(deployment on Render and production environments)
 * **Authentication:** 🔐 JWT Token based auth
 
 ## 🚀 Getting Started
