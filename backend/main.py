@@ -13,7 +13,11 @@ from backend.models import User
 models.Base.metadata.create_all(bind=database.engine)
 
 # Initialize FastAPI app
-app = FastAPI(title="Leave Management System API", version="1.0.0")
+app = FastAPI(
+    title="Leave Management System API",
+    version="1.0.0",
+    description="Backend API for managing employee leave requests with admin approval"
+)
 
 # ===== CORS Middleware =====
 app.add_middleware(
@@ -34,7 +38,6 @@ app.include_router(auth.router, tags=["Authentication"])
 def root():
     return {"message": "Leave Management API is running"}
 
-
 # ===== SAFE ADMIN SETUP ENDPOINT =====
 @app.post("/setup-admin", tags=["Admin Setup"])
 def setup_admin(db: Session = Depends(database.get_db)):
@@ -42,10 +45,10 @@ def setup_admin(db: Session = Depends(database.get_db)):
     Creates a default admin account ONLY if no admin exists.
     Uses the same function as create_admin.py to avoid code duplication.
     """
-    if db.query(User).filter(User.role == "admin").first():
+    existing_admin = db.query(User).filter(User.role == "admin").first()
+    if existing_admin:
         return {"message": "Admin already exists. Nothing to do."}
 
-    # Call the same function used in create_admin.py
     create_admin_script()
 
     return {
